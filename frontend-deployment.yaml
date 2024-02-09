@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 2 # Adjust the number of replicas as needed
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend-rentcom
+        image: eliudnjenga/rentcofrontend:latest 
+        ports:
+        - containerPort: 80 # Adjust port if different
+          name: http
+        # Add environment variables, volumes, etc. as needed
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  selector:
+    app: frontend
+  ports:
+  - protocol: TCP
+    targetPort: 80 # Adjust port if different
+    port: 80 # Adjust port if different
+    name: http
+  type: LoadBalancer # Can be NodePort or ClusterIP for internal access
