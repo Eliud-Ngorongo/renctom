@@ -1,19 +1,11 @@
 pipeline {
     agent any
     environment {
-        DOCKER_HUB_CREDENTIALS = credentials('docker-hub-access')
+       DOCKER_HUB_USERNAME = 'eliudnjenga'
+        DOCKER_HUB_PASSWORD = 'Fee8q7zsTut3#2!'
         DOCKER_IMAGE = 'eliudnjenga/rentcom'
     }
-    stages {
-        stage('Docker Login') {
-            steps {
-                script {
-                    docker.withRegistry('', DOCKER_HUB_CREDENTIALS) {
-                        // No operation required, just the authentication check
-                    }
-                }
-            }
-        }
+   
         stage('Build') {
             steps {
                 script {
@@ -24,7 +16,7 @@ pipeline {
         stage('Push') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_HUB_CREDENTIALS) {
+                    docker.withRegistry('https://index.docker.io/v1/',  DOCKER_HUB_USERNAME, DOCKER_HUB_PASSWORD) {
                         docker.image(DOCKER_IMAGE).push()
                     }
                 }
