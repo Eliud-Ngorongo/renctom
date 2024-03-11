@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKER_HUB_CREDENTIALS = credentials('docker-creds')
+        DOCKER_HUB_CREDENTIALS = credentials('docker-hub-access')
         DOCKER_IMAGE = 'eliudnjenga/rentcom'
     }
     stages {
