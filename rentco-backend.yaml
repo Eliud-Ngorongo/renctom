@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend
+  name: rentcom
 spec:
-  replicas: 1 # Adjust the number of replicas as needed
+  replicas: 1
   selector:
     matchLabels:
-      app: backend
+      app: rentcom
   template:
     metadata:
       labels:
-        app: backend
+        app: rentcom
     spec:
       containers:
-      - name: backend
-        image:  eliudnjenga/rentcom:1.0
+      - name: rentcom
+        image:  eliudnjenga/rentcom:latest
         ports:
         - containerPort: 5000 
         env:
@@ -30,11 +30,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend-service
+  name: rentcom
 spec:
   type: LoadBalancer
   selector:
-    app: backend
+    app: rentcom
   ports:
   - protocol: TCP
     targetPort: 5000 # Adjust port as needed

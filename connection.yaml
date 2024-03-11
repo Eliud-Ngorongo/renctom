@@ -3,7 +3,7 @@ kind: Secret
 metadata:
   name: password
 type: Opaque
-stringData:
-  mongodb_password: emxycXpoVnRrS0NVOHhHdAo=
+data:
+  mongodb_password: emxycXpoVnRrS0NVOHhHdA==
 
 
