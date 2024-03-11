@@ -5,7 +5,7 @@ pipeline {
         DOCKER_HUB_PASSWORD = 'Fee8q7zsTut3#2!'
         DOCKER_IMAGE = 'eliudnjenga/rentcom'
     }
-   
+     stages {
         stage('Build') {
             steps {
                 script {
@@ -23,4 +23,4 @@ pipeline {
             }
         }
     }
-
+}
