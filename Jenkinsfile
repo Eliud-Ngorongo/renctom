@@ -1,23 +1,19 @@
 pipeline {
     agent any
-    environment {
-       DOCKER_HUB_USERNAME = 'eliudnjenga'
-        DOCKER_HUB_PASSWORD = 'Fee8q7zsTut3#2!'
-        DOCKER_IMAGE = 'eliudnjenga/rentcom'
-    }
-     stages {
-        stage('Build') {
+
+    stages {
+        stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build(DOCKER_IMAGE)
+                    docker.build('eliudnjenga/rentcom:latest')
                 }
             }
         }
-        stage('Push') {
+        stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/',  DOCKER_HUB_USERNAME, DOCKER_HUB_PASSWORD) {
-                        docker.image(DOCKER_IMAGE).push()
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials-id') {
+                        docker.image('eliudnjenga/rentcom:latest').push()
                     }
                 }
             }
