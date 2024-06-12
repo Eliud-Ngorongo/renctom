@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: rentcom
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: rentcom
@@ -14,16 +14,15 @@ spec:
     spec:
       containers:
       - name: rentcom
-        image:  eliudnjenga/rentcom:latest
+        image: eliudnjenga/rentcom:latest 
         ports:
-        - containerPort: 5000 
+        - containerPort: 5000
         env:
-          - name: MONGODB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: password
-                key: mongodb_password
-   
+        - name: MONGODB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: password
+              key: mongodb_password         
 
 ---
 
@@ -39,4 +38,4 @@ spec:
   - protocol: TCP
     targetPort: 5000 # Adjust port as needed
     port: 80 # Adjust port as needed
-   # Internal access to backend, adjust if needed
+    # Internal access to backend, adjust if needed
