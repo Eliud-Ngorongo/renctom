@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  backend:
+    image: eliudnjenga/rentcombackend
+    ports:
+      - "5000:5000"
+    environment:
+      MONGO_URI: "mongodb+srv://eliudnjenga:{MONGODB_PASSWORD}@rentco.hcmmfxk.mongodb.net/?retryWrites=true&w=majority"
+      MONGODB_PASSWORD: "$MONGODB_PASSWORD"
+    healthcheck:
+      test: ["CMD", "mongo", "$(MONGO_URI)", "-u", "$(MONGODB_USERNAME)", "-p", "$(MONGODB_PASSWORD)", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+  frontend:
+    image: eliudnjenga/rentcomfront
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+    ports:
+      - "80:80"
+
+# Optional: Docker secrets for security
+# secrets:
+#   - source: .env
+#     target: /app/env
